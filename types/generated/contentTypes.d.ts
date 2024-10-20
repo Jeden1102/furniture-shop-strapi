@@ -1,39 +1,5 @@
 import type { Struct, Schema } from '@strapi/strapi';
 
-export interface ApiHomePageSlideHomePageSlide
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'home_page_slides';
-  info: {
-    singularName: 'home-page-slide';
-    pluralName: 'home-page-slides';
-    displayName: 'Home Page Slide';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Schema.Attribute.String;
-    price: Schema.Attribute.Decimal;
-    url: Schema.Attribute.String;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    description: Schema.Attribute.Text;
-    createdAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    publishedAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::home-page-slide.home-page-slide'
-    > &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Struct.CollectionTypeSchema {
   collectionName: 'files';
   info: {
@@ -529,6 +495,76 @@ export interface PluginUsersPermissionsUser
   };
 }
 
+export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
+  collectionName: 'articles';
+  info: {
+    singularName: 'article';
+    pluralName: 'articles';
+    displayName: 'Article';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'default';
+        }
+      >;
+    title: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::article.article'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHomePageSlideHomePageSlide
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'home_page_slides';
+  info: {
+    singularName: 'home-page-slide';
+    pluralName: 'home-page-slides';
+    displayName: 'Home Page Slide';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+    price: Schema.Attribute.Decimal;
+    url: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    description: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::home-page-slide.home-page-slide'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface AdminPermission extends Struct.CollectionTypeSchema {
   collectionName: 'admin_permissions';
   info: {
@@ -901,7 +937,6 @@ export interface AdminTransferTokenPermission
 declare module '@strapi/strapi' {
   export module Public {
     export interface ContentTypeSchemas {
-      'api::home-page-slide.home-page-slide': ApiHomePageSlideHomePageSlide;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;
@@ -912,6 +947,8 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::article.article': ApiArticleArticle;
+      'api::home-page-slide.home-page-slide': ApiHomePageSlideHomePageSlide;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
       'admin::role': AdminRole;
