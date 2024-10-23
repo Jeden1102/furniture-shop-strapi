@@ -1,0 +1,46 @@
+{
+    "kind": "collectionType",
+    "collectionName": "inspirations",
+    "info": {
+        "singularName": "inspiration",
+        "pluralName": "inspirations",
+        "displayName": "Inspiration",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "title": {
+            "type": "string"
+        },
+        "subtitle": {
+            "type": "string"
+        },
+        "description": {
+            "type": "customField",
+            "options": {
+                "preset": "default"
+            },
+            "customField": "plugin::ckeditor5.CKEditor"
+        },
+        "spot": {
+            "displayName": "spot",
+            "type": "component",
+            "repeatable": true,
+            "component": "spots.spot"
+        },
+        "image": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        }
+    }
+}
